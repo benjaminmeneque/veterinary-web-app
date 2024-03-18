@@ -1,25 +1,49 @@
-from rest_framework import viewsets
+from rest_framework import mixins, viewsets
 
 from apis import serializers
 from booking import models
 
 
 # Create your views here.
-class DoctorViewSet(viewsets.ModelViewSet):
+class DoctorViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
     queryset = models.Doctor.objects.all()
     serializer_class = serializers.DoctorSerializer
 
 
-class VeterinaryViewSet(viewsets.ModelViewSet):
+class VeterinaryViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
     queryset = models.Veterinary.objects.all()
     serializer_class = serializers.VeterinarySerializer
 
 
-class PetViewSet(viewsets.ModelViewSet):
+class PetViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
     queryset = models.Pet.objects.all()
     serializer_class = serializers.PetSerializer
 
 
-class VeterinaryInstanceViewSet(viewsets.ModelViewSet):
+class VeterinaryInstanceViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
     queryset = models.VeterinaryInstance.objects.all()
     serializer_class = serializers.VeterinaryInstanceSerializer
