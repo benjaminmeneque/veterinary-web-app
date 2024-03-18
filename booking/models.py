@@ -2,9 +2,8 @@ import uuid
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.urls import reverse
 from phonenumber_field.modelfields import PhoneNumberField
-
-# Create your models here.
 
 
 class Specialties(models.Model):
@@ -12,6 +11,9 @@ class Specialties(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        ordering = ["name"]
 
 
 class Doctor(models.Model):
@@ -21,8 +23,14 @@ class Doctor(models.Model):
     email = models.EmailField(max_length=255, blank=True, null=True)
     phone_number = PhoneNumberField(blank=True, null=True)
 
+    class Meta:
+        ordering = ["first_name", "last_name"]
+
     def __str__(self):
         return self.last_name + "," + self.first_name
+
+    def get_absolute_url(self):
+        return reverse("doctor-detail", args=[str(self.id)])
 
 
 class Veterinary(models.Model):
@@ -30,8 +38,14 @@ class Veterinary(models.Model):
     address = models.CharField(max_length=255, blank=False, null=False)
     contact_number = PhoneNumberField(blank=False, null=False)
 
+    class Meta:
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("veterinary-detail", args=[str(self.id)])
 
 
 class Pet(models.Model):
@@ -42,6 +56,9 @@ class Pet(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse("pet-detail", args=[str(self.id)])
 
 
 class VeterinaryInstance(models.Model):
@@ -59,5 +76,11 @@ class VeterinaryInstance(models.Model):
     create_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=1, choices=BOOKING_STATUS, default="p")
 
+    class Meta:
+        ordering = ["create_date"]
+
     def __str__(self):
         return self.pet_name.name + "-" + self.owner.username
+
+    def get_absolute_url(self):
+        return reverse("veterinary-instance-detail", args=[str(self.id)])
