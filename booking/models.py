@@ -15,6 +15,9 @@ class Specialties(models.Model):
     class Meta:
         ordering = ["name"]
 
+    def get_absolute_url(self):
+        return reverse("specialties-detail", args=[str(self.id)])
+
 
 class Doctor(models.Model):
     first_name = models.CharField(max_length=255, blank=False, null=False)
@@ -53,6 +56,9 @@ class Pet(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
     date_birth = models.DateField()
     breed = models.CharField(max_length=255, blank=False, null=False)
+
+    class Meta:
+        ordering = ["name"]
 
     def __str__(self):
         return self.name

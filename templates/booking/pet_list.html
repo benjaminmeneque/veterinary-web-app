@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+
+
+{% block content %}
+
+{% for pet in pet_list %}
+<ul>
+    <li><a href="#">{{ pet.owner|capfirst }}-{{ pet.name|capfirst }}</a></li>
+</ul>
+{% endfor %}
+    
+    
+{% endblock content %}
+    

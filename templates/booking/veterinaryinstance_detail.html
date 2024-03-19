@@ -1,0 +1,12 @@
+{% extends '_base.html' %}
+
+
+{% block content %}
+    <h1>{{ veterinaryinstance.veterinary_name }}</h1>
+    <p>{{ veterinaryinstance.doctor_name }}</p>
+    <p>{{ veterinaryinstance.owner }}</p>
+    <p>{{ veterinaryinstance.pet_name }}</p>
+    <p>{{ veterinaryinstance.get_status_display }}</p>
+    <p>{{ veterinaryinstance.description }}</p>
+{% endblock content %}
+    

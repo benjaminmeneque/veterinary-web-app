@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+
+
+{% block content %}
+
+{% for veterinary_instance in veterinaryinstance_list %}
+<ul>
+    <li><a href="#">{{ veterinary_instance.veterinary_name|capfirst }}-{{ veterinary_instance.owner|capfirst }}</a></li>
+</ul>
+{% endfor %}
+    
+    
+{% endblock content %}
+    

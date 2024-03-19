@@ -1,0 +1,11 @@
+{% extends '_base.html' %}
+
+
+{% block content %}
+    <h1>{{ doctor.last_name }},{{ doctor.first_name }}</h1>
+    <p>{% for specialty in doctor.specialties.all %}{{ specialty.name|capfirst }}
+        {% endfor %}</p>
+    <a href="mailto:{{ doctor.email }}">{{ doctor.email }}</a>
+    <p>{{ doctor.phone_number }}</p>
+{% endblock content %}
+    
