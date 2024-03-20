@@ -11,6 +11,7 @@ router.register(r"veterinarian-instances", views.VeterinaryInstanceViewSet)
 
 
 urlpatterns = [
-    path("register/", views.RegisterView.as_view(), name="auth_register"),
+    path("dj-rest-auth/facebook/", views.FacebookLogin.as_view(), name="fb_login"),
+    path("dj-rest-auth/google/", views.GoogleLogin.as_view(), name="google_login"),
     path("", include(router.urls)),
 ]

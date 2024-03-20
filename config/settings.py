@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "dj_rest_auth",
     "dj_rest_auth.registration",
+    "drf_spectacular",
     # local
     "booking.apps.BookingConfig",
     "apis.apps.ApisConfig",
@@ -160,7 +161,8 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
-    ]
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -186,4 +188,13 @@ SOCIALACCOUNT_PROVIDERS = {
         "VERSION": "v13.0",
         "GRAPH_API_URL": "https://graph.facebook.com/v13.0",
     }
+}
+
+# drf-spectacular
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Veterinary API",
+    "DESCRIPTION": "Veterinary API",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    # OTHER SETTINGS
 }

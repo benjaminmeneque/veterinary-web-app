@@ -1,5 +1,7 @@
-from django.contrib.auth.models import User
-from rest_framework import generics, mixins, viewsets
+from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
+from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
+from dj_rest_auth.registration.views import SocialLoginView
+from rest_framework import mixins, viewsets
 
 from apis import serializers
 from booking import models
@@ -50,6 +52,9 @@ class VeterinaryInstanceViewSet(
     serializer_class = serializers.VeterinaryInstanceSerializer
 
 
-class RegisterView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = serializers.RegisterSerializer
+class FacebookLogin(SocialLoginView):
+    adapter_class = FacebookOAuth2Adapter
+
+
+class GoogleLogin(SocialLoginView):
+    adapter_class = GoogleOAuth2Adapter
