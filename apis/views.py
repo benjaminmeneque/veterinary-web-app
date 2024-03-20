@@ -1,4 +1,5 @@
-from rest_framework import mixins, viewsets
+from django.contrib.auth.models import User
+from rest_framework import generics, mixins, viewsets
 
 from apis import serializers
 from booking import models
@@ -47,3 +48,8 @@ class VeterinaryInstanceViewSet(
 ):
     queryset = models.VeterinaryInstance.objects.all()
     serializer_class = serializers.VeterinaryInstanceSerializer
+
+
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = serializers.RegisterSerializer
