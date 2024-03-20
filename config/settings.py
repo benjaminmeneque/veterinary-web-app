@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.facebook",
     "rest_framework",
     "crispy_forms",
     "crispy_bootstrap5",
@@ -148,14 +149,41 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by email
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
+ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
 
 # crispy-bootstrap5
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
+# django_rest_framework
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ]
+}
+
+SOCIALACCOUNT_PROVIDERS = {
+    "facebook": {
+        "METHOD": "oauth2",  # Set to 'js_sdk' to use the Facebook connect SDK
+        "SDK_URL": "//connect.facebook.net/{locale}/sdk.js",
+        "SCOPE": ["email", "public_profile"],
+        "AUTH_PARAMS": {"auth_type": "reauthenticate"},
+        "INIT_PARAMS": {"cookie": True},
+        "FIELDS": [
+            "id",
+            "first_name",
+            "last_name",
+            "middle_name",
+            "name",
+            "name_format",
+            "picture",
+            "short_name",
+        ],
+        "EXCHANGE_TOKEN": True,
+        "LOCALE_FUNC": "path.to.callable",
+        "VERIFIED_EMAIL": False,
+        "VERSION": "v13.0",
+        "GRAPH_API_URL": "https://graph.facebook.com/v13.0",
+    }
 }

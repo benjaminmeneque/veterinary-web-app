@@ -63,4 +63,5 @@ urlpatterns = [
     path("pets/", views.PetList.as_view(), name="pet-list"),
     path("veterinarians/", views.VeterinaryList.as_view(), name="veterinarians-list"),
     path("doctors/", views.DoctorList.as_view(), name="doctor-list"),
+    path("", views.index, name="home"),
 ]

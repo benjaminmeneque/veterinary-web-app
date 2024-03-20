@@ -1,0 +1,9 @@
+{% extends '_base.html' %}
+
+
+{% block content %}
+{% load socialaccount %}
+<a href="{% provider_login_url 'facebook' process='login' %}">Connect a Facebook account</a>
+<a href="{% provider_login_url 'google' process='login' %}">Connect a Google account</a>
+{% endblock content %}
+    
