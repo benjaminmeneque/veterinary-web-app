@@ -14,14 +14,43 @@ class Specialties(models.Model):
 
     class Meta:
         ordering = ["name"]
+        verbose_name = "Specialty"
+        verbose_name_plural = "Specialties"
 
     def get_absolute_url(self):
         return reverse("specialties-detail", args=[str(self.id)])
 
 
+class Service(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ["name"]
+
+
+class Veterinary(models.Model):
+    name = models.CharField(max_length=255, blank=False, null=False)
+    address = models.CharField(max_length=255, blank=False, null=False)
+    contact_number = PhoneNumberField(blank=False, null=False)
+    services = models.ManyToManyField(Service)
+
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self):
+        return f"{self.name} ({self.address})"
+
+    def get_absolute_url(self):
+        return reverse("veterinary-detail", args=[str(self.id)])
+
+
 class Doctor(models.Model):
     first_name = models.CharField(max_length=255, blank=False, null=False)
     last_name = models.CharField(max_length=255, blank=False, null=False)
+    clinic = models.ForeignKey(Veterinary, on_delete=models.CASCADE)
     specialties = models.ManyToManyField(Specialties)
     email = models.EmailField(max_length=255, blank=True, null=True)
     phone_number = PhoneNumberField(blank=True, null=True)
@@ -34,21 +63,6 @@ class Doctor(models.Model):
 
     def get_absolute_url(self):
         return reverse("doctor-detail", args=[str(self.id)])
-
-
-class Veterinary(models.Model):
-    name = models.CharField(max_length=255, blank=False, null=False)
-    address = models.CharField(max_length=255, blank=False, null=False)
-    contact_number = PhoneNumberField(blank=False, null=False)
-
-    class Meta:
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("veterinary-detail", args=[str(self.id)])
 
 
 class Pet(models.Model):
@@ -75,7 +89,7 @@ class VeterinaryInstance(models.Model):
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     veterinary_name = models.ForeignKey(Veterinary, on_delete=models.RESTRICT)
-    doctor_name = models.ForeignKey(Doctor, on_delete=models.RESTRICT)
+    doctor = models.ForeignKey(Doctor, on_delete=models.RESTRICT, blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.RESTRICT)
     pet_name = models.ForeignKey(Pet, on_delete=models.RESTRICT)
     description = models.TextField(max_length=255, blank=True, null=True)

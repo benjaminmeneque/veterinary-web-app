@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+
+
+{% block content %}
+<h1>Search Results</h1>
+
+<ul>
+  {% for result in object_list %}
+    <li>
+      <strong><a href="{% url 'veterinary-detail' result.id %}">{{ result.name }} ({{ result.address }})</a></strong>
+    </li>
+    {% empty %}
+    <h2>No Result</h2>
+  {% endfor %}
+</ul>
+
+{% endblock content %}
+    

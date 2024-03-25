@@ -3,12 +3,16 @@
 
 {% block content %}
 
+{% if user.is_authenticated %}
 {% for pet in pet_list %}
 <ul>
-    <li><a href="#">{{ pet.owner|capfirst }}-{{ pet.name|capfirst }}</a></li>
+    <li><a href="{% url 'pet-detail' pet.id %}">{{ pet.name|capfirst }}</a></li>
 </ul>
+{% empty %}
+<p>you have no registered pet</p>
+<p>please register you using this <a href="{% url 'pet-create' %}">link</a></p>
 {% endfor %}
-    
-    
+{% endif %}
+  
 {% endblock content %}
     

@@ -5,10 +5,8 @@
 
 {% for veterinary in veterinary_list %}
 <ul>
-    <li><a href="#">{{ veterinary.name|capfirst }}-{{ veterinary.address|capfirst }}</a></li>
+    <li><a href="{% url 'veterinary-detail' veterinary.id %}">{{ veterinary.name|capfirst }}-{{ veterinary.address|capfirst }}</a></li>
 </ul>
 {% endfor %}
-    
-    
 {% endblock content %}
     

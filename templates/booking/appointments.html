@@ -1,0 +1,32 @@
+{% extends '_base.html' %}
+
+
+{% block content %}
+    <h1>Pending Appointments</h1>
+    <ul>
+        {% for pending in pending_appointments %}
+        <li><a href="{% url 'veterinary-instance-update' pending.id %}"> {{ pending }}</a></li>
+        {% empty %}
+        <p>No Pending Appointments</p>
+        {% endfor %}
+    </ul>
+    <br>
+    <h1>Approved Appointments</h1>
+    <ul>
+        {% for approved in approved_appointments %}
+        <li>{{ approved }}</li>
+        {% empty %}
+        <p>No Approved Appointments</p>
+        {% endfor %}
+    </ul>
+    <br>
+    <h1>Declined Appointments</h1>
+    <ul>
+        {% for declined in declined_appointments %}
+        <li>{{ declined }}</li>
+        {% empty %}
+        <p>No Declined Appointments</p>
+        {% endfor %}
+    </ul>
+{% endblock content %}
+    

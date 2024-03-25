@@ -5,7 +5,7 @@
 
 {% for doctor in doctor_list %}
 <ul>
-    <li><a href="#">{{ doctor.last_name|capfirst }},{{ doctor.first_name|capfirst }}</a></li>
+    <li><a href="{% url 'doctor-detail' doctor.id %}">{{ doctor.last_name|capfirst }},{{ doctor.first_name|capfirst }}</a></li>
 </ul>
 {% endfor %}
     

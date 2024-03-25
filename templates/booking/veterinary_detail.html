@@ -2,8 +2,16 @@
 
 
 {% block content %}
-    <h1>{{ veterinary.name }}</h1>
-    <p>{{ veterinary.address }}</p>
-    <p>{{ veterinary.contact_number }}</p>
+<ul>
+    <li><strong>Name: </strong>{{ veterinary.name }}</li>
+    <li><strong>Address: </strong>{{ veterinary.address }}</li>
+    <li><strong>Contact Number: </strong>{{ veterinary.contact_number }}</li>
+    <li><strong>Services: </strong>{% for service in veterinary.services.all %} {{ service|capfirst }}{% if not forloop.last %}, {% endif %}{% endfor %} </li>
+</ul>
+
+{% if perms.booking.change_veterinary %}
+<a class="btn btn-info" href="{% url 'veterinary-update' veterinary.id %}" role="button">Change</a>
+{% endif %}
+
 {% endblock content %}
     

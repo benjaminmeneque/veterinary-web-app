@@ -2,8 +2,15 @@
 
 
 {% block content %}
-{% load socialaccount %}
-<a href="{% provider_login_url 'facebook' process='login' %}">Connect a Facebook account</a>
-<a href="{% provider_login_url 'google' process='login' %}">Connect a Google account</a>
+<h1>Hi,{{ user }}</h1>
+<ul>
+   <li><strong>available clinics: </strong>{{ available_clinics }}</li>
+   <li><strong>available doctors: </strong>{{ available_doctors }}</li>
+   {% if user.is_authenticated %}
+   <li><strong>appointments: </strong>{{ num_appointments }}</li>
+   <li><strong>pets: </strong>{{ num_pets }}</li>
+   {% endif %}
+</ul>
+
 {% endblock content %}
     

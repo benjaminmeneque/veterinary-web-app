@@ -7,6 +7,10 @@ class SpecialtiesAdmin(admin.ModelAdmin):
     pass
 
 
+class ServiceAdmin(admin.ModelAdmin):
+    pass
+
+
 class DoctorAdmin(admin.ModelAdmin):
     list_display = ["first_name", "last_name", "email", "phone_number"]
     empty_value_display = "-empty-"
@@ -29,7 +33,6 @@ class VeterinaryInstanceAdmin(admin.ModelAdmin):
     list_display = [
         "id",
         "veterinary_name",
-        "doctor_name",
         "owner",
         "pet_name",
         "create_date",
@@ -45,3 +48,4 @@ admin.site.register(models.Doctor, DoctorAdmin)
 admin.site.register(models.Veterinary, VeterinaryAdmin)
 admin.site.register(models.VeterinaryInstance, VeterinaryInstanceAdmin)
 admin.site.register(models.Pet, PetAdmin)
+admin.site.register(models.Service, ServiceAdmin)

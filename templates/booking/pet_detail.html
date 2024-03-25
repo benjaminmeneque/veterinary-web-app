@@ -2,9 +2,11 @@
 
 
 {% block content %}
-    <h1>{{ pet.owner }}</h1>
-    <p>{{ pet.name }}</p>
-    <p>{{ pet.date_birth }}</p>
-    <p>{{ pet.breed }}</p>
+<ul>
+    <li><strong>Name: </strong>{{ pet.name|capfirst }}</li>
+    <li><strong>Birthday: </strong>{{ pet.date_birth }}</li>
+    <li><strong>Breed: </strong>{{ pet.breed|capfirst }}</li>
+</ul>
+<a class="btn btn-info" href="{% url 'pet-update' pet.id %}" role="button">Change</a>
 {% endblock content %}
     

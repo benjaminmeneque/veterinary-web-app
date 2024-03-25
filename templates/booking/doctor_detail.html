@@ -2,10 +2,16 @@
 
 
 {% block content %}
-    <h1>{{ doctor.last_name }},{{ doctor.first_name }}</h1>
-    <p>{% for specialty in doctor.specialties.all %}{{ specialty.name|capfirst }}
-        {% endfor %}</p>
-    <a href="mailto:{{ doctor.email }}">{{ doctor.email }}</a>
-    <p>{{ doctor.phone_number }}</p>
+<ul>
+    <li><strong>Name: </strong>{{ doctor.last_name|capfirst }},{{ doctor.first_name|capfirst }}</li>
+    <li><strong>Specialties: </strong>{% for specialty in doctor.specialties.all %} {{ specialty.name|capfirst }}{% if not forloop.last %}, {% endif %} {% endfor %}</li>
+    <li><strong>Email: </strong>{{ doctor.email|default_if_none:"Email is not available" }}</li>
+    <li><strong>Phone Number: </strong>{{ doctor.phone_number|default_if_none:"Phone number is not available" }}</li>
+</ul>
+
+{% if perms.booking.change_doctor %}
+<a class="btn btn-info" href="{% url 'doctor-update' doctor.id %}" role="button">Change</a>
+{% endif %}
+    
 {% endblock content %}
     

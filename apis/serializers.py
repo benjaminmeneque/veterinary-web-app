@@ -1,7 +1,4 @@
-from django.contrib.auth.models import User
-from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
 
 from booking import models
 
@@ -82,3 +79,15 @@ class VeterinaryInstanceSerializer(serializers.ModelSerializer):
         data["pet_name"] = instance.pet_name.name
         data["veterinary_name"] = instance.veterinary_name.name
         return data
+
+
+class SpecialtiesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Specialties
+        fields = ["name"]
+
+
+class ServiceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Service
+        fields = ["name"]

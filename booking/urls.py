@@ -21,6 +21,7 @@ urlpatterns = [
         views.SpecialtiesCreate.as_view(),
         name="specialties-create",
     ),
+    path("services/new/", views.CreateService.as_view(), name="service-create"),
     # update
     path(
         "bookings/<uuid:pk>/update/",
@@ -64,4 +65,6 @@ urlpatterns = [
     path("veterinarians/", views.VeterinaryList.as_view(), name="veterinarians-list"),
     path("doctors/", views.DoctorList.as_view(), name="doctor-list"),
     path("", views.index, name="home"),
+    path("search/", views.SearchResultsList.as_view(), name="search-results"),
+    path("appointments/", views.ApppoinmentsView, name="appointment"),
 ]

@@ -1,6 +1,3 @@
-from allauth.socialaccount.providers.facebook.views import FacebookOAuth2Adapter
-from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
-from dj_rest_auth.registration.views import SocialLoginView
 from rest_framework import mixins, viewsets
 
 from apis import serializers
@@ -52,9 +49,23 @@ class VeterinaryInstanceViewSet(
     serializer_class = serializers.VeterinaryInstanceSerializer
 
 
-class FacebookLogin(SocialLoginView):
-    adapter_class = FacebookOAuth2Adapter
+class SpecialtiesViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
+    queryset = models.Specialties.objects.all()
+    serializer_class = serializers.SpecialtiesSerializer
 
 
-class GoogleLogin(SocialLoginView):
-    adapter_class = GoogleOAuth2Adapter
+class ServiceViewSet(
+    mixins.CreateModelMixin,
+    mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
+    mixins.UpdateModelMixin,
+    viewsets.GenericViewSet,
+):
+    queryset = models.Service.objects.all()
+    serializer_class = serializers.ServiceSerializer

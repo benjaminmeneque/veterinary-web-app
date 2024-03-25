@@ -150,7 +150,7 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by email
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
-ACCOUNT_DEFAULT_HTTP_PROTOCOL = "https"
+LOGIN_REDIRECT_URL = "home"
 
 # crispy-bootstrap5
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -187,7 +187,17 @@ SOCIALACCOUNT_PROVIDERS = {
         "VERIFIED_EMAIL": False,
         "VERSION": "v13.0",
         "GRAPH_API_URL": "https://graph.facebook.com/v13.0",
-    }
+    },
+    "google": {
+        "SCOPE": [
+            "profile",
+            "email",
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online",
+        },
+        "OAUTH_PKCE_ENABLED": True,
+    },
 }
 
 # drf-spectacular
@@ -198,3 +208,8 @@ SPECTACULAR_SETTINGS = {
     "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
 }
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
