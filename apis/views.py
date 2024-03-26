@@ -1,10 +1,17 @@
-from rest_framework import mixins, viewsets
+from django.contrib.auth.models import User
+from rest_framework import mixins, permissions, viewsets
 
 from apis import serializers
 from booking import models
 
 
 # Create your views here.
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all().order_by("-date_joined")
+    serializer_class = serializers.UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+
 class DoctorViewSet(
     mixins.CreateModelMixin,
     mixins.ListModelMixin,

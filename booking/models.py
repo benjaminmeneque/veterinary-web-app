@@ -66,7 +66,7 @@ class Doctor(models.Model):
 
 
 class Pet(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.RESTRICT)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, blank=False, null=False)
     date_birth = models.DateField()
     breed = models.CharField(max_length=255, blank=False, null=False)
@@ -83,18 +83,18 @@ class Pet(models.Model):
 
 class VeterinaryInstance(models.Model):
     BOOKING_STATUS = (
-        ("p", "pending"),
-        ("a", "approved"),
-        ("d", "declined"),
+        ("Pending", "pending"),
+        ("Approved", "approved"),
+        ("Declined", "declined"),
     )
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     veterinary_name = models.ForeignKey(Veterinary, on_delete=models.RESTRICT)
     doctor = models.ForeignKey(Doctor, on_delete=models.RESTRICT, blank=True, null=True)
-    owner = models.ForeignKey(User, on_delete=models.RESTRICT)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE)
     pet_name = models.ForeignKey(Pet, on_delete=models.RESTRICT)
     description = models.TextField(max_length=255, blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=1, choices=BOOKING_STATUS, default="p")
+    status = models.CharField(max_length=10, choices=BOOKING_STATUS, default="Pending")
 
     class Meta:
         ordering = ["create_date"]

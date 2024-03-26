@@ -50,11 +50,6 @@ urlpatterns = [
         name="veterinary-instance-detail",
     ),
     path("pets/<int:pk>/", views.PetDetail.as_view(), name="pet-detail"),
-    path(
-        "specialties/<int:pk>/",
-        views.SpecialtiesDetail.as_view(),
-        name="specialties-detail",
-    ),
     # list
     path(
         "bookings/",

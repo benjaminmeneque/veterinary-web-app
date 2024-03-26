@@ -1,6 +1,18 @@
+from django.contrib.auth.hashers import make_password
+from django.contrib.auth.models import User
 from rest_framework import serializers
 
 from booking import models
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ["url", "username", "first_name", "last_name", "email", "password"]
+
+    def create(self, validated_data):
+        validated_data["password"] = make_password(validated_data["password"])
+        return super(UserSerializer, self).create(validated_data)
 
 
 class DoctorSerializer(serializers.ModelSerializer):
@@ -52,14 +64,12 @@ class PetSerializer(serializers.ModelSerializer):
 
 
 class VeterinaryInstanceSerializer(serializers.ModelSerializer):
-    status = serializers.SerializerMethodField()
-
     class Meta:
         model = models.VeterinaryInstance
         fields = [
             "id",
             "veterinary_name",
-            "doctor_name",
+            "doctor",
             "owner",
             "pet_name",
             "description",
@@ -67,17 +77,15 @@ class VeterinaryInstanceSerializer(serializers.ModelSerializer):
             "status",
         ]
 
-    def get_status(self, obj):
-        return dict(models.VeterinaryInstance.BOOKING_STATUS).get(obj.status)
-
     def to_representation(self, instance):
         data = super().to_representation(instance)
         data["owner"] = instance.owner.username
-        data["doctor_name"] = (
-            instance.doctor_name.first_name + " " + instance.doctor_name.last_name
-        )
         data["pet_name"] = instance.pet_name.name
         data["veterinary_name"] = instance.veterinary_name.name
+        if instance.doctor != None:
+            data["doctor"] = (
+                instance.doctor.first_name + " " + instance.doctor.last_name
+            )
         return data
 
 

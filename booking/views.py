@@ -32,9 +32,9 @@ def index(request):
 
 # staff views
 def ApppoinmentsView(request):
-    pending_appointments = models.VeterinaryInstance.objects.filter(status="p")
-    approved_appointments = models.VeterinaryInstance.objects.filter(status="a")
-    declined_appointments = models.VeterinaryInstance.objects.filter(status="d")
+    pending_appointments = models.VeterinaryInstance.objects.filter(status="Pending")
+    approved_appointments = models.VeterinaryInstance.objects.filter(status="Approved")
+    declined_appointments = models.VeterinaryInstance.objects.filter(status="Declined")
 
     context = {
         "pending_appointments": pending_appointments,
@@ -159,10 +159,7 @@ class VeterinaryInstanceList(LoginRequiredMixin, ListView):
 class SpecialtiesCreate(LoginRequiredMixin, CreateView):
     model = models.Specialties
     fields = ["name"]
-
-
-class SpecialtiesDetail(DetailView):
-    model = models.Specialties
+    success_url = reverse_lazy("specialties-create")
 
 
 class SearchResultsList(ListView):
