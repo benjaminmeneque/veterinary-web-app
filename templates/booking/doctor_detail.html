@@ -5,8 +5,15 @@
 <ul>
     <li><strong>Name: </strong>{{ doctor.last_name|capfirst }},{{ doctor.first_name|capfirst }}</li>
     <li><strong>Specialties: </strong>{% for specialty in doctor.specialties.all %} {{ specialty.name|capfirst }}{% if not forloop.last %}, {% endif %} {% endfor %}</li>
-    <li><strong>Email: </strong>{{ doctor.email|default_if_none:"Email is not available" }}</li>
-    <li><strong>Phone Number: </strong>{{ doctor.phone_number|default_if_none:"Phone number is not available" }}</li>
+    
+    {% if doctor.email %}
+    <li><strong>Email: </strong>{{ doctor.email }}</li>
+    {% endif %}
+    
+    {% if doctor.phone_number %}
+    <li><strong>Phone Number: </strong>{{ doctor.phone_number }}</li>
+    {% endif %}
+        
 </ul>
 
 {% if perms.booking.change_doctor %}

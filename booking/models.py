@@ -9,13 +9,13 @@ from phonenumber_field.modelfields import PhoneNumberField
 class Specialties(models.Model):
     name = models.CharField(max_length=255)
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         ordering = ["name"]
         verbose_name = "Specialty"
         verbose_name_plural = "Specialties"
+
+    def __str__(self):
+        return self.name
 
     def get_absolute_url(self):
         return reverse("specialties-detail", args=[str(self.id)])
@@ -24,11 +24,11 @@ class Specialties(models.Model):
 class Service(models.Model):
     name = models.CharField(max_length=255)
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         ordering = ["name"]
+
+    def __str__(self):
+        return self.name
 
 
 class Veterinary(models.Model):
@@ -59,7 +59,7 @@ class Doctor(models.Model):
         ordering = ["first_name", "last_name"]
 
     def __str__(self):
-        return self.last_name + "," + self.first_name
+        return f"{self.last_name},{self.first_name}"
 
     def get_absolute_url(self):
         return reverse("doctor-detail", args=[str(self.id)])
@@ -82,11 +82,14 @@ class Pet(models.Model):
 
 
 class VeterinaryInstance(models.Model):
-    BOOKING_STATUS = (
-        ("Pending", "pending"),
-        ("Approved", "approved"),
-        ("Declined", "declined"),
-    )
+    PENDING = "PENDING"
+    APPROVED = "APPROVED"
+    DECLINED = "DECLINED"
+    APPOINTMENT_STATUS = {
+        PENDING: "Pending",
+        APPROVED: "Approved",
+        DECLINED: "Declined",
+    }
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     veterinary_name = models.ForeignKey(Veterinary, on_delete=models.RESTRICT)
     doctor = models.ForeignKey(Doctor, on_delete=models.RESTRICT, blank=True, null=True)
@@ -94,13 +97,15 @@ class VeterinaryInstance(models.Model):
     pet_name = models.ForeignKey(Pet, on_delete=models.RESTRICT)
     description = models.TextField(max_length=255, blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=10, choices=BOOKING_STATUS, default="Pending")
+    status = models.CharField(
+        max_length=10, choices=APPOINTMENT_STATUS, default="Pending"
+    )
 
     class Meta:
         ordering = ["create_date"]
 
     def __str__(self):
-        return self.pet_name.name + "-" + self.owner.username
+        return f"{self.pet_name.name}-{self.owner.username}"
 
     def get_absolute_url(self):
         return reverse("veterinary-instance-detail", args=[str(self.id)])

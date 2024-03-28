@@ -3,11 +3,17 @@
 
 {% block content %}
 <ul>
-    <li><strong>Name: </strong>{{ veterinaryinstance.veterinary_name }}</li>
-    <li><strong>Pet: </strong>{{ veterinaryinstance.pet_name|capfirst }}</li>
+    <li><strong>Clinic Name: </strong>{{ veterinaryinstance.veterinary_name }}</li>
+    <li><strong>Pet Name: </strong>{{ veterinaryinstance.pet_name|capfirst }}</li>
     <li><strong>Status: </strong>{{ veterinaryinstance.get_status_display|capfirst }}</li>
-    <li><strong>Doctor: </strong>{{ veterinaryinstance.doctor|default_if_none:"no assigned doctor(need to approved first)"|capfirst }}</li>
-    <li><strong>Description: </strong>{{ veterinaryinstance.description|default_if_none:"no description" }}</li>
+    {% if veterinaryinstance.doctor %}
+    <li><strong>Doctor Name: </strong>{{ veterinaryinstance.doctor|capfirst }}</li>    
+    {% endif %}
+    
+    {% if veterinaryinstance.description %}
+    <li><strong>Description: </strong>{{ veterinaryinstance.description }}</li>    
+    {% endif %}
+            
 </ul>
 {% endblock content %}
     
