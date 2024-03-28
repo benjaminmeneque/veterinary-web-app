@@ -8,5 +8,6 @@
     <li><strong>Breed: </strong>{{ pet.breed|capfirst }}</li>
 </ul>
 <a class="btn btn-info" href="{% url 'pet-update' pet.id %}" role="button">Change</a>
+<a class="btn btn-danger" href="{% url 'pet-delete' pet.id %}" role="button">Remove</a>
 {% endblock content %}
     

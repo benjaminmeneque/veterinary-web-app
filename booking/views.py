@@ -3,7 +3,7 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, ListView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from booking import forms, models
 
@@ -119,6 +119,11 @@ class PetList(LoginRequiredMixin, ListView):
         return pet_list
 
 
+class PetDelete(DeleteView):
+    model = models.Pet
+    success_url = reverse_lazy("pet-list")
+
+
 # veterinary instance views
 class VeterinaryInstanceCreate(LoginRequiredMixin, CreateView):
     model = models.VeterinaryInstance
@@ -153,6 +158,11 @@ class VeterinaryInstanceList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         booking_list = models.VeterinaryInstance.objects.filter(owner=self.request.user)
         return booking_list
+
+
+class VeterinaryInstanceDelete(DeleteView):
+    model = models.VeterinaryInstance
+    success_url = reverse_lazy("veterinary-instance-list")
 
 
 # specialties views

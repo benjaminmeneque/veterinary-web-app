@@ -1,0 +1,14 @@
+{% extends '_base.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <p>Are you sure you want to cancel your appointment in "{{ object }}"?</p>
+    {{ form|crispy }}
+    <a class="btn btn-primary" href="{% url 'veterinary-instance-list' %}" role="button">Cancel</a>
+    <input class="btn btn-danger" type="submit" value="Confirm">
+</form>
+{% endblock content %}
+    

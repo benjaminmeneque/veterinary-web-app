@@ -62,4 +62,11 @@ urlpatterns = [
     path("", views.index, name="home"),
     path("search/", views.SearchResultsList.as_view(), name="search-results"),
     path("appointments/", views.ApppoinmentsView, name="appointment"),
+    # delete
+    path("pet/delete/<int:pk>/", views.PetDelete.as_view(), name="pet-delete"),
+    path(
+        "booking/delete/<uuid:pk>/",
+        views.VeterinaryInstanceDelete.as_view(),
+        name="veterinary-instance-delete",
+    ),
 ]
