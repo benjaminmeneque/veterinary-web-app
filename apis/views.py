@@ -52,7 +52,7 @@ class VeterinaryInstanceViewSet(
     mixins.UpdateModelMixin,
     viewsets.GenericViewSet,
 ):
-    queryset = models.VeterinaryInstance.objects.all()
+    queryset = models.VeterinaryInstance.objects.all().order_by("-create_date")
     serializer_class = serializers.VeterinaryInstanceSerializer
 
 

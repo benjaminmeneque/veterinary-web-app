@@ -63,10 +63,11 @@ class PetSerializer(serializers.ModelSerializer):
         return data
 
 
-class VeterinaryInstanceSerializer(serializers.ModelSerializer):
+class VeterinaryInstanceSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.VeterinaryInstance
         fields = [
+            "url",
             "id",
             "veterinary_name",
             "doctor",
