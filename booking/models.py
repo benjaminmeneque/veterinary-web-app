@@ -91,10 +91,10 @@ class VeterinaryInstance(models.Model):
         DECLINED: "Declined",
     }
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    veterinary_name = models.ForeignKey(Veterinary, on_delete=models.RESTRICT)
-    doctor = models.ForeignKey(Doctor, on_delete=models.RESTRICT, blank=True, null=True)
+    veterinary_name = models.ForeignKey(Veterinary, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, on_delete=models.SET_NULL, null=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    pet_name = models.ForeignKey(Pet, on_delete=models.RESTRICT)
+    pet_name = models.ForeignKey(Pet, on_delete=models.CASCADE)
     description = models.TextField(max_length=255, blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True)
     status = models.CharField(
@@ -105,7 +105,7 @@ class VeterinaryInstance(models.Model):
         ordering = ["create_date"]
 
     def __str__(self):
-        return f"{self.pet_name.name}-{self.owner.username}"
+        return f"{self.veterinary_name}"
 
     def get_absolute_url(self):
         return reverse("veterinary-instance-detail", args=[str(self.id)])
