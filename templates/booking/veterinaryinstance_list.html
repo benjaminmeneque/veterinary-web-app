@@ -5,7 +5,7 @@
 
 {% for veterinary_instance in veterinaryinstance_list %}
 <ul>
-<li><a href="{% url 'veterinary-instance-detail' veterinary_instance.id %}">{{ veterinary_instance.veterinary_name|capfirst }} {{ veterinary_instance.create_date }}</a></li>
+<li><a href="{% url 'veterinary-instance-detail' veterinary_instance.id %}">{{ veterinary_instance.veterinary_name|capfirst }} {{ veterinary_instance.schedule }}</a></li>
 </ul>
 {% empty %}
 <p>You have no appointment to click this <a href="{% url 'veterinary-instance-create' %}">Link</a> to add appointment</p>
