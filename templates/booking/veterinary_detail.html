@@ -7,6 +7,11 @@
     <li><strong>Address: </strong>{{ veterinary.address }}</li>
     <li><strong>Contact Number: </strong>{{ veterinary.contact_number }}</li>
     <li><strong>Services: </strong>{% for service in veterinary.services.all %} {{ service|capfirst }}{% if not forloop.last %}, {% endif %}{% endfor %} </li>
+    
+    {% if veterinary.image %}
+    <img src="{{ veterinary.image.url }}" alt="clinic image">    
+    {% endif %}
+        
 </ul>
 
 {% if perms.booking.change_veterinary %}

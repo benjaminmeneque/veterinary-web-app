@@ -36,6 +36,7 @@ class Veterinary(models.Model):
     address = models.CharField(max_length=255, blank=False, null=False)
     contact_number = PhoneNumberField(blank=False, null=False)
     services = models.ManyToManyField(Service)
+    image = models.ImageField(blank=True, null=True)
 
     class Meta:
         ordering = ["name"]
@@ -97,12 +98,14 @@ class VeterinaryInstance(models.Model):
     pet_name = models.ForeignKey(Pet, on_delete=models.CASCADE)
     description = models.TextField(max_length=255, blank=True, null=True)
     create_date = models.DateTimeField(auto_now_add=True)
+    update_date = models.DateTimeField(auto_now=True)
+    schedule = models.DateTimeField()
     status = models.CharField(
         max_length=10, choices=APPOINTMENT_STATUS, default="Pending"
     )
 
     class Meta:
-        ordering = ["create_date"]
+        ordering = ["schedule"]
 
     def __str__(self):
         return f"{self.veterinary_name}"

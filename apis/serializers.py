@@ -43,6 +43,7 @@ class VeterinarySerializer(serializers.ModelSerializer):
             "name",
             "address",
             "contact_number",
+            "image",
         ]
 
 
@@ -75,6 +76,8 @@ class VeterinaryInstanceSerializer(serializers.HyperlinkedModelSerializer):
             "pet_name",
             "description",
             "create_date",
+            "update_date",
+            "schedule",
             "status",
         ]
 

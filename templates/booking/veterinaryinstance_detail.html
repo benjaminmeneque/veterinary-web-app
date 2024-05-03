@@ -6,6 +6,7 @@
     <li><strong>Clinic Name: </strong>{{ veterinaryinstance.veterinary_name }}</li>
     <li><strong>Pet Name: </strong>{{ veterinaryinstance.pet_name|capfirst }}</li>
     <li><strong>Status: </strong>{{ veterinaryinstance.get_status_display|capfirst }}</li>
+    <li><strong>Schedule: </strong>{{ veterinaryinstance.schedule }}</li>
     {% if veterinaryinstance.doctor %}
     <li><strong>Doctor Name: </strong>{{ veterinaryinstance.doctor|capfirst }}</li>    
     {% endif %}

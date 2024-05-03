@@ -74,7 +74,7 @@ class DoctorList(ListView):
 # veterinary views
 class VeterinaryCreate(LoginRequiredMixin, CreateView):
     model = models.Veterinary
-    fields = ["name", "address", "contact_number", "services"]
+    fields = ["name", "address", "contact_number", "services", "image"]
 
 
 class VeterinaryUpdate(LoginRequiredMixin, UpdateView):
@@ -127,7 +127,7 @@ class PetDelete(DeleteView):
 # veterinary instance views
 class VeterinaryInstanceCreate(LoginRequiredMixin, CreateView):
     model = models.VeterinaryInstance
-    fields = ["veterinary_name", "pet_name", "description"]
+    form_class = forms.AppointmentForm
 
     def form_valid(self, form):
         form.instance.owner = self.request.user
